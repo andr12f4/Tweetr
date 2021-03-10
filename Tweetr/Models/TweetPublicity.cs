@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Tweetr.Models
 {
-    public class Friend
+    public enum TweetPublicity
     {
-        public List<int> Bruger { get; set; }
+        Public,Private
     }
 }

@@ -2,9 +2,54 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row row-cols-1">
+    <div class="col overflow-auto">
+        @foreach(Models.Tweet tweet in Model.TweetsPublic)
+        {
+        <div class="card">
+            <p class="card-header">@tweet.customer.Username</p>
+            <div class="card-body">
+                <h5 class="card-title">@tweet.customer.Name</h5>
+                <p class="card-text text-center">@tweet.Text</p>
+                <a class="btn btn-primary">Like</a> <p> @tweet.Likes.Count</p>
+            </div>
+
+        </div>
+        }
+    </div>
+    <div class="col overflow-auto">
+        @if (!Model.NotLoggedIn)
+        {
+            @foreach (Models.Tweet tweet in Model.TweetsPrivate)
+            {
+                <div class="card">
+                    <p class="card-header">@tweet.customer.Username</p>
+                    <div class="card-body">
+                        <h5 class="card-title">@tweet.customer.Name</h5>
+                        <p class="card-text text-center">@tweet.Text</p>
+                        <a class="btn btn-primary">Like</a> <p> @tweet.Likes.Count</p>
+                        
+                    </div>
+                    <div class="card-footer">
+                        <i>@tweet.DateOfTweet.ToString()</i>
+                    </div>
+                </div>
+            }
+    }
+    else
+    {
+        <p>lav login form her</p>
+    }
+    </div>
+    <div class="col overflow-auto">
+        @if (!Model.NotLoggedIn)
+        {
+
+        <p>lav en tweet her</p>
+        }
+       
+    </div>
 </div>
