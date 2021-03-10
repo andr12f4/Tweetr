@@ -7,5 +7,6 @@ namespace Tweetr.Models
 {
     public class Friend
     {
+        public List<Customer> Bruger { get; set; }
     }
 }
