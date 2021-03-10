@@ -1,0 +1,38 @@
+﻿@page
+@model MadOrderingssystem.Pages.Login.ProfilModel
+@{
+    ViewData["Title"] = "Profil";
+}
+
+@if (Model.CustomerSession != null)
+{
+    @if (Model.CustomerSession.Role == Models.Roles.Management)
+    {
+        <div class="container">
+            @if (Model.CustomerSession != null)
+            {
+
+                <h2 class="text-center">Din profil</h2>
+                <div class="border"></div>
+                <h4>@Model.CustomerSession.Name @Model.CustomerSession.LastName</h4>
+                <i>lavet d. @Model.CustomerSession.Date</i>
+                <p>Bor i @Model.CustomerSession.Address, @Model.CustomerSession.PostNumber</p>
+                <p>Dit Telefonnummer: @Model.CustomerSession.PhoneNumber</p>
+                <p>Din email: @Model.CustomerSession.Email</p>
+                <p>med rolen @Model.CustomerSession.Role</p>
+                <i>ID:@Model.CustomerSession.ID</i>
+            }
+            else
+            {
+                <h1>@Model.exeptionMSG</h1>
+            }
+        </div>
+    }
+}
+else
+{
+    <h1 class="text-center" style="font-family:'Times New Roman', Times, serif"> Du er ikke logget ind</h1>
+    <div>
+        <a asp-page="/Login/log_in">Login med din bruger</a>
+    </div>
+}

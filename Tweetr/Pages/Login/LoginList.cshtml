@@ -1,0 +1,106 @@
+﻿@page
+@model MadOrderingssystem.Pages.Login.LoginListModel
+@{
+    ViewData["Title"] = "Login Management";
+    @using MadOrderingssystem.Models;
+}
+@if (Model.CustomerSession != null)
+{
+    @if (Model.CustomerSession.Role == Models.Roles.Management)
+    {
+        <h1 class="text-center">Bruger Tabel</h1>
+        <p class="text-center"></p>
+        <h3>Brugere</h3>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Navn
+                    </th>
+                    <th>
+                        Efternavn
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Telefonnummer
+                    </th>
+                    <th>
+                        Adresse
+                    </th>
+                    <th>
+                        Postnummer
+                    </th>
+                    <th>
+                        Registrerings dato
+                    </th>
+                    <th>
+                        Password
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                    <th>
+                        Kontrol
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Customer customer in Model.DicC.Values)
+                {
+                    <tr>
+                        <td>
+                            @customer.ID
+                        </td>
+                        <td>
+                            @customer.Name
+                        </td>
+                        <td>
+                            @customer.LastName
+                        </td>
+                        <td>
+                            @customer.Email
+                        </td>
+                        <td>
+                            @customer.PhoneNumber
+                        </td>
+                        <td>
+                            @customer.Address
+                        </td>
+                        <td>
+                            @customer.PostNumber
+                        </td>
+                        <td>
+                            @customer.Date.ToString()
+                        </td>
+                        <td>
+                            @customer.Password
+                        </td>
+                        <td>
+                            @customer.Role
+                        </td>
+                        <td>
+                            <p>
+                                <a asp-page="EditUser" asp-route-id="@customer.ID">Redigere</a> |
+                                <a asp-page="DeleteUser" asp-route-id="@customer.ID">Slet</a>
+                            </p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+}
+else
+{
+    <h1 class="text-center" style="font-family:'Times New Roman', Times, serif"> Du er ikke logget ind</h1>
+    <div>
+        <a asp-page="/Login/log_in">Login med din bruger</a>
+    </div>
+}

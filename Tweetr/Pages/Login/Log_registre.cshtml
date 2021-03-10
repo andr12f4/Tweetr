@@ -1,0 +1,68 @@
+﻿@page
+@model MadOrderingssystem.Pages.Login.Log_registreModel
+@{
+    ViewData["Title"] = "Registrer";
+}
+
+<div class="container">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="form-group">
+            <label class="form-text">Navn</label>
+            <input asp-for="@Model.Customer.Name" class="form-control" />
+            <span asp-validation-for="@Model.Customer.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-text">Efternavn</label>
+            <input asp-for="@Model.Customer.LastName" class="form-control" />
+            <span asp-validation-for="@Model.Customer.LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-text">Adresse</label>
+            <input asp-for="@Model.Customer.Address" class="form-control" />
+            <span asp-validation-for="@Model.Customer.Address" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-text">Post nummer</label>
+            <input type="text" asp-for="@Model.Customer.PostNumber" class="form-control" />
+            <span asp-validation-for="@Model.Customer.PostNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-text">Telefon nr.</label>
+            <input type="tel" asp-for="@Model.Customer.PhoneNumber" class="form-control" />
+            <span asp-validation-for="@Model.Customer.PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-text">Email</label>
+            <input type="email" asp-for="@Model.Customer.Email" class="form-control" />
+            <span asp-validation-for="@Model.Customer.Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-text">Password</label>
+            <input type="password" asp-for="@Model.Customer.Password" class="form-control" />
+            <span asp-validation-for="@Model.Customer.Password" class="text-danger"></span>
+        </div>
+        
+        @if (Model.CustomerSession != null)
+        {
+            @if (Model.CustomerSession.Role == Models.Roles.Management)
+            {
+                <div class="form-group">
+                    <label class="form-text">Roler</label>
+                    <p> Kunde rollerne er følgende: 0 = Salgsperson, 1=Management, 2=Customer, 3=Pizza bager</p>
+                    <input type="range" min="0" max="3" asp-for="@Model.Customer.Role" />
+                </div>
+            }
+        } else
+        {
+            <input type="hidden" value="@Models.Roles.Customer" asp-for="@Model.Customer.Role" />
+        }
+
+        <div style="padding:1rem;"></div>
+        <div class="form-group">
+
+            <input type="submit" class="btn btn-success float-right" value="Opret bruger" style="padding:1rem;" />
+        </div>
+    </form>
+
+</div>

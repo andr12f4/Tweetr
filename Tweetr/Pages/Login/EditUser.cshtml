@@ -1,0 +1,74 @@
+﻿@page "{id}"
+@model MadOrderingssystem.Pages.Login.EditUserModel
+@{
+    ViewData["Title"] = "Redigere bruger";
+}
+@if (Model.CustomerSession != null)
+{
+    <div class="container">
+        <form class="form-group" method="post">
+            <div asp-validation-summary="ModelOnly"></div>
+            <label class="form-text">Name</label>
+            <input type="text" class="form-control" asp-for="@Model.Customer.Name" />
+            <span asp-validation-for="@Model.Customer.Name" class="text-danger"></span>
+            <label class="form-text">Last name</label>
+            <input type="text" class="form-control" asp-for="@Model.Customer.LastName" />
+            <span asp-validation-for="@Model.Customer.LastName" class="text-danger"></span>
+            <label class="form-text">Adresse</label>
+            <input type="text" class="form-control" asp-for="@Model.Customer.Address" />
+            <span asp-validation-for="@Model.Customer.Address" class="text-danger"></span>
+            <label class="form-text">Post nummer</label>
+            <input type="number" class="form-control" asp-for="@Model.Customer.PostNumber" />
+            <span asp-validation-for="@Model.Customer.PostNumber" class="text-danger"></span>
+            <label class="form-text">Telefon nr.</label>
+            <input type="text" class="form-control" asp-for="@Model.Customer.PhoneNumber" />
+            <span asp-validation-for="@Model.Customer.PhoneNumber" class="text-danger"></span>
+            <label class="form-text">Email</label>
+            <input type="email" class="form-control" asp-for="@Model.Customer.Email" />
+            <span asp-validation-for="@Model.Customer.Email" class="text-danger"></span>
+            <label class="form-text">Password</label>
+            <input type="text" class="form-control" asp-for="@Model.Customer.Password" />
+            <span asp-validation-for="@Model.Customer.Password" class="text-danger"></span>
+
+            @if (Model.CustomerSession.Role == Models.Roles.Management)
+            {
+                <label class="form-text">Role</label>
+                <ul>
+                    <li>
+                        <label class="form-text">Customer:</label>
+                        <input type="radio" name="Roles" id="Kunde role" value="@Models.Roles.Customer" class="" asp-for="@Model.Customer.Role" />
+                    </li>
+                    <li>
+                        <label class="form-text">Pizza bager</label>
+                        <input type="radio" name="Roles" id="Pizza Bager role" value="@Models.Roles.PizzaBaker" class="" asp-for="@Model.Customer.Role" />
+                    </li>
+                    <li>
+                        <label class="form-text">Salgsperson</label>
+                        <input type="radio" name="Roles" id="Salgs persen role" value="@Models.Roles.SalesPerson" class="" asp-for="@Model.Customer.Role" />
+                    </li>
+                    <li>
+                        <label class="form-text">Management</label>
+                        <input type="radio" name="Roles" id="Management Role" value="@Models.Roles.Management" class="" asp-for="@Model.Customer.Role" />
+                    </li>
+                </ul>
+            }
+            <div style="padding:1rem;"></div>
+            <input type="hidden" class="form-control" asp-for="@Model.Customer.ID" />
+            <input type="hidden" class="form-control" asp-for="@Model.Customer.Role" />
+            <input type="hidden" class="form-control" asp-for="@Model.Customer.CustomerDiscount" />
+            <input type="hidden" class="form-control" asp-for="@Model.Customer.Date" />
+            <input type="submit" class="btn btn-success float-right" value="Redigere bruger" placeholder="Login" style="padding:1rem;" />
+        </form>
+        <div>
+            <a asp-page="LoginList">Tilbage til alle bruger listen</a>
+        </div>
+
+    </div>
+}
+else
+{
+    <h1 class="text-center" style="font-family:'Times New Roman', Times, serif"> Du er ikke logget ind</h1>
+    <div>
+        <a asp-page="/Login/log_in">Login med din bruger</a>
+    </div>
+}
