@@ -1,4 +1,19 @@
 ﻿@page
 @model Tweetr.Pages.Login.Log_inModel
 @{
+    ViewData["Title"] = "Login";
 }
+
+<div class="container">
+    <form class="form-group" method="post">
+        <label class="form-text">Email</label>
+        <input type="text" class="form-control" asp-for="@Model.Username" />
+        <span asp-validation-for="@Model.Username" class="text-danger"></span>
+        <label class="form-text">Password</label>
+        <input type="text" class="form-control" asp-for="@Model.Password" />
+        <span asp-validation-for="@Model.Password" class="text-danger"></span>
+        <div style="padding:1rem;"></div>
+        <input type="submit" class="btn btn-success float-right" value="Login" placeholder="Login" style="padding:1rem;" />
+    </form>
+
+</div>
