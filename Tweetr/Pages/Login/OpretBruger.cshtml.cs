@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Tweetr.Pages.Login
 {
-    public class Log_inModel : PageModel
+    public class OpretBrugerModel : PageModel
     {
         public void OnGet()
         {
