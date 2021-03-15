@@ -9,8 +9,11 @@ namespace Tweetr.Pages.Login
 {
     public class LoginBrugerListeModel : PageModel
     {
+
+        public Dictionary<int, Models.Customer> Liste { get; set; }
         public void OnGet()
         {
+            Liste = new Services.CustomerHandler().GetDictionary();
         }
     }
 }

@@ -14,5 +14,13 @@
     "Password": "1",
     "Friends": [],
     "Username": "Andreas"
+  },
+  "3": {
+    "Id": 3,
+    "Name": "asd",
+    "Email": "asd@asd.dk",
+    "Password": "asd",
+    "Friends": [],
+    "Username": "asd"
   }
 }

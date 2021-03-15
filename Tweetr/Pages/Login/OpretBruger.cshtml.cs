@@ -13,7 +13,6 @@ namespace Tweetr.Pages.Login
 {
     public class OpretBrugerModel : PageModel
     {
-        public Customer CustomerSession { get; set; }
 
         [BindProperty]
         public Customer Customer { get; set; }
@@ -27,11 +26,8 @@ namespace Tweetr.Pages.Login
 
         public void OnGet()
         {
-            try
-            {
-                CustomerSession = JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user"));
-            }
-            catch (ArgumentNullException ex) { }
+            
+          
 
         }
 
