@@ -32,7 +32,7 @@ namespace Tweetr.Pages
 
         public void OnGet()
         {
-            if (Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user")) != null)
+            if (HttpContext.Session.GetString("user") != null)
             {
                 customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user"));
                 TweetsPrivate = TweetHandler.GetAllFriendsTweets(customer.Id);

@@ -4,11 +4,16 @@
     ViewData["Title"] = "Registrer";
 }
 
-<div class="container">
+
     <form method="post">
         <div asp-validation-summary="ModelOnly"></div>
         <div class="form-group">
             <label class="form-text">Brugernavn</label>
+            <input asp-for="@Model.Customer.Username" class="form-control" />
+            <span asp-validation-for="@Model.Customer.Username" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-text">Navn</label>
             <input asp-for="@Model.Customer.Name" class="form-control" />
             <span asp-validation-for="@Model.Customer.Name" class="text-danger"></span>
         </div>
@@ -16,11 +21,6 @@
             <label class="form-text">Adgangskode</label>
             <input type="password" asp-for="@Model.Customer.Password" class="form-control" />
             <span asp-validation-for="@Model.Customer.Password" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label class="form-text">Navn</label>
-            <input asp-for="@Model.Customer.Name" class="form-control" />
-            <span asp-validation-for="@Model.Customer.Name" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label class="form-text">Email</label>
@@ -36,5 +36,3 @@
             <input type="submit" class="btn btn-success float-right" value="Opret bruger" style="padding:1rem;" />
         </div>
     </form>
-
-</div>

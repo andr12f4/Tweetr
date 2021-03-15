@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
+using Tweetr.Interfaces;
 using Tweetr.Models;
+using Tweetr.Services;
 
 namespace Tweetr.Pages.Login
 {
@@ -17,6 +21,12 @@ namespace Tweetr.Pages.Login
         [BindProperty]
         public string Password { get; set; }
 
+        private ICustomer customerHandler;
+
+        public Log_inModel(ICustomer ic)
+        {
+            customerHandler = ic;
+        }
         public void OnGet()
         {
 
@@ -25,14 +35,13 @@ namespace Tweetr.Pages.Login
         public IActionResult OnPost()
         {
 
-            CustomerHandler customerHandler = new CustomerHandler();
-            Customer = customerHandler.Get(Username, Password);
+            Customer = customerHandler.GetCustomer(Username, Password);
             if (Customer != null)
             {
                 HttpContext.Session.SetString("user", JsonConvert.SerializeObject(Customer));
                 return RedirectToPage("/Index");
             }
-            if (!ModelState.IsValid) { return Page(); }
+           
             return Page();
         }
     }

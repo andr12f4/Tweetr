@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using Tweetr.Interfaces;
 using Tweetr.Models;
 
 namespace Tweetr.Pages.Login
@@ -16,6 +17,13 @@ namespace Tweetr.Pages.Login
 
         [BindProperty]
         public Customer Customer { get; set; }
+
+        private ICustomer CustomerHandler;
+
+        public OpretBrugerModel(ICustomer ic)
+        {
+            CustomerHandler = ic;
+        } 
 
         public void OnGet()
         {
@@ -29,17 +37,17 @@ namespace Tweetr.Pages.Login
 
         public IActionResult OnPost()
         {
-            if (ModelState.IsValid)
+
+            if (Customer != null)
             {
-
-                Customer.CustomerDiscount = true;
-                CustomerHandler cH = new CustomerHandler();
-                cH.Create(Customer);
-
+                Customer.Friends = new List<int>();
+                CustomerHandler.Create(Customer);
                 return RedirectToPage("/Index");
             }
-            return Page();
 
+            return Page();
         }
+
+      
     }
 }
