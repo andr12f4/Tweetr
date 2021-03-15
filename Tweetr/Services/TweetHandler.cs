@@ -13,7 +13,7 @@ namespace Tweetr.Services
     {
 
         private string _filePath = Path.GetFullPath("./Data/TweetData.json", Environment.CurrentDirectory);
-
+        private string _filePathC = Path.GetFullPath("./Data/UserData.json", Environment.CurrentDirectory);
         public void Create(Tweet tweet)
         {
             Dictionary<int, Tweet> dicT = new JsonFile<Tweet>().ReadJsonFile(_filePath);
@@ -31,7 +31,7 @@ namespace Tweetr.Services
         public List<Tweet> GetAllFriendsTweets(int userID)
         {
             Dictionary<int, Tweet> dicT = new JsonFile<Tweet>().ReadJsonFile(_filePath);
-            List<int> listofFriends = new JsonFile<Customer>().ReadJsonFile(_filePath)[userID].Friends;
+            List<int> listofFriends = new JsonFile<Customer>().ReadJsonFile(_filePathC)[userID].Friends;
             List<Tweet> listOfTweets = new List<Tweet>();
             foreach (Tweet tweet in dicT.Values)
             {
