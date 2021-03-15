@@ -1,4 +1,56 @@
 ﻿@page
+@using Tweetr.Models
 @model Tweetr.Pages.Login.LoginBrugerListeModel
 @{
+    ViewData["Title"] = "Brugerliste";
 }
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+<h1>@ViewData["Title"]</h1>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Brugernavn
+            </th>
+            <th>
+                Navn
+            </th>
+            <th>
+                Email
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Customer customer in Model.Liste.Values)
+        {
+            <tr>
+                <td>
+                    @customer.Id
+                </td>
+                <td>
+                    @customer.Username
+                </td>
+                <td>
+                    @customer.Name
+                </td>
+                <td>
+                    @customer.Email
+                </td>
+
+            </tr>
+        }
+    </tbody>
+
+</table>

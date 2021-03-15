@@ -50,6 +50,13 @@ namespace Tweetr.Services
             }
             return null;
         }
+        public Dictionary<int, Customer> GetDictionary()
+        {
+            JsonFile<Customer> jsonKategori = new JsonFile<Customer>();
+            return jsonKategori.ReadJsonFile(_filePath);
+
+        }
+
     }
 
 }
