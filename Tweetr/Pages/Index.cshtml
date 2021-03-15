@@ -10,11 +10,24 @@
         @foreach(Models.Tweet tweet in Model.TweetsPublic)
         {
         <div class="card">
-            <p class="card-header">@tweet.customer.Username</p>
+            <p class="card-header">At @tweet.customer.Username</p>
             <div class="card-body">
                 <h5 class="card-title">@tweet.customer.Name</h5>
                 <p class="card-text text-center">@tweet.Text</p>
-                <a class="btn btn-primary">Like</a> <p> @tweet.Likes.Count</p>
+
+
+                @if (Model.customer != null)
+                {
+                    @if (Model.Tweet.Likes[Model.customer.Id] == Model.customer.Id)
+                    {
+
+                    <a class="btn btn-primary" asp-page-handler="Like" asp-route="@tweet.Id">Like</a>
+                    }
+                }
+                <p> @tweet.Likes.Count har synes godt om</p>
+            </div>
+            <div class="card-footer">
+                <i>Blev sendt d. @tweet.DateOfTweet.ToString()</i>
             </div>
 
         </div>
@@ -30,26 +43,48 @@
                     <div class="card-body">
                         <h5 class="card-title">@tweet.customer.Name</h5>
                         <p class="card-text text-center">@tweet.Text</p>
-                        <a class="btn btn-primary">Like</a> <p> @tweet.Likes.Count</p>
-                        
+                        @if (Model.customer != null && tweet.Likes[Model.customer.Id] != Model.customer.Id)
+                        {
+                            <a class="btn btn-primary" asp-page-handler="Like" asp-route="@tweet.Id">Like</a>
+                        }
+                        <p> @tweet.Likes.Count har synes godt om</p>
+
                     </div>
                     <div class="card-footer">
-                        <i>@tweet.DateOfTweet.ToString()</i>
+                        <i>Blev sendt d. @tweet.DateOfTweet.ToString()</i>
                     </div>
                 </div>
             }
-    }
-    else
-    {
-        <p>lav login form her</p>
-    }
+        }
+        else
+        {
+            <h4 class="text-center">Du er ikke logget ind</h4> <br />
+            <h5 class="text-center">Login her:</h5>
+            <div class="text-center">
+                <a class="btn btn-primary" type="button" asp-page="/Login/Log_in">Login</a>
+            </div>
+        }
     </div>
     <div class="col overflow-auto">
         @if (!Model.NotLoggedIn)
         {
+            <h5>Skriv en Tweet</h5>
+            <form method="post">
+                <div asp-validation-summary="ModelOnly"></div>
+                <div class="form-group">
+                    <label class="form-text">Text</label>
+                    <input asp-for="@Model.Tweet.Text" class="form-control" />
+                    <span asp-validation-for="@Model.Tweet.Text" class="text-danger"></span>
+                </div>
+                <label class="form-text">Synligheden for dit tweet</label>
+                <input type="radio" asp-for="@Model.Tweet.tweetPublicity" value="@Models.TweetPublicity.Private" />Private <br />
+                <input type="radio" asp-for="@Model.Tweet.tweetPublicity" value="@Models.TweetPublicity.Public" />Public <br />
+                <div style="padding:1rem;"></div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success float-right" value="Send Tweet" style="padding:1rem;" />
+                </div>
+            </form>
+                }
 
-        <p>lav en tweet her</p>
-        }
-       
-    </div>
+        </div>
 </div>

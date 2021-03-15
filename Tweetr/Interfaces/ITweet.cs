@@ -10,6 +10,7 @@ namespace Tweetr.Interfaces
     {
         public void Create(Tweet tweet);
         public Tweet GetTweet(int id);
+        public void UpdateTweet(int id, Tweet tweet);
         public void DeleteTweet(int id);
         public List<Tweet> GetAllPublicTweets();
         public List<Tweet> GetAllFriendsTweets(int userID);

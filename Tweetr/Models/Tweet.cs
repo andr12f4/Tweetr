@@ -9,7 +9,7 @@ namespace Tweetr.Models
     {
         public int Id { get; set; }
         public string Text { get; set; }
-        public List<Customer> Likes { get; set; }
+        public List<int> Likes { get; set; }
         public Customer customer { get; set; }
         public TweetPublicity tweetPublicity { get; set; }
         public DateTime DateOfTweet { get; set; }

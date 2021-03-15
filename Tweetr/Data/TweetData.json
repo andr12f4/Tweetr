@@ -1,3 +1,17 @@
 {
-
+  "1": {
+    "Id": 1,
+    "Text": "Andet Tweet",
+    "Likes": [],
+    "customer": {
+      "Id": 2,
+      "Name": "An",
+      "Email": "Andreas@a.com",
+      "Password": "1",
+      "Friends": [],
+      "Username": "Andreas"
+    },
+    "tweetPublicity": 0,
+    "DateOfTweet": "2021-03-15T11:55:56.509501+01:00"
+  }
 }

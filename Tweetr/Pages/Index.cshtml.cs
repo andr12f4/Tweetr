@@ -15,14 +15,16 @@ namespace Tweetr.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private ITweet TweetHandler;
-        private Customer customer;
-
-
+        
+        
+        public Customer customer { get; set; }
         public bool NotLoggedIn { get; set; }
         [BindProperty]
         public List<Tweet> TweetsPublic { get; set; }
         [BindProperty]
         public List<Tweet> TweetsPrivate { get; set; }
+        [BindProperty]
+        public Tweet Tweet { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, ITweet iTweet)
         {
@@ -43,6 +45,33 @@ namespace Tweetr.Pages
             }
 
             TweetsPublic = TweetHandler.GetAllPublicTweets();
+        }
+
+        public IActionResult OnPost()
+        {
+            if (Tweet.Text.Length > 1)
+            {
+                Tweet.customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user"));
+                
+                TweetHandler.Create(Tweet);
+                return Page();
+            }
+            return Page();
+        }
+
+        public IActionResult OnPostLikes(int id)
+        {
+            Tweet tweet = TweetHandler.GetTweet(id);
+            TweetHandler.UpdateTweet(id,tweet);
+            if (TweetsPublic != null)
+            {
+                tweet.Likes.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user")).Id);
+            }
+            if (TweetsPrivate != null)
+            {
+                tweet.Likes.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user")).Id);
+            }
+            return Page();
         }
     }
 }

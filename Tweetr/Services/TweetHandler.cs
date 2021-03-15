@@ -17,7 +17,10 @@ namespace Tweetr.Services
         public void Create(Tweet tweet)
         {
             Dictionary<int, Tweet> dicT = new JsonFile<Tweet>().ReadJsonFile(_filePath);
-            dicT.Add(tweet.Id, tweet);
+            tweet.Id = dicT.Count + 1;
+            tweet.DateOfTweet = DateTime.Now;
+            tweet.Likes = new List<int>();
+            dicT.Add(dicT.Count +1, tweet);
             new JsonFile<Tweet>().WriteJsonFile(dicT, _filePath);
         }
 
@@ -81,6 +84,13 @@ namespace Tweetr.Services
         {
             Dictionary<int, Tweet> dicT = new JsonFile<Tweet>().ReadJsonFile(_filePath);
             return dicT[id];
+        }
+
+        public void UpdateTweet(int id, Tweet tweet)
+        {
+            Dictionary<int, Tweet> dicT = new JsonFile<Tweet>().ReadJsonFile(_filePath);
+            dicT[id] = tweet;
+            new JsonFile<Tweet>().WriteJsonFile(dicT, _filePath);
         }
     }
 }
