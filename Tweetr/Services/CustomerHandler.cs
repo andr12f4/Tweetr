@@ -16,7 +16,7 @@ namespace Tweetr.Services
         public void Create(Customer customer)
         {
             Dictionary<int, Customer> dicT = new JsonFile<Customer>().ReadJsonFile(_filePath);
-            dicT.Add(customer.Id, customer);
+            dicT.Add(dicT.Count + 1, customer);
             new JsonFile<Customer>().WriteJsonFile(dicT, _filePath);
         }
 

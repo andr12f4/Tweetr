@@ -1,10 +1,18 @@
 {
-  "0": {
-    "Id": 0,
+  "1": {
+    "Id": 1,
     "Name": "Alex",
     "Email": "Alex@Alex.dk",
     "Password": "Alex",
-    "friend": null,
-    "Username": null
+    "Friends": [],
+    "Username": "Alex"
+  },
+  "2": {
+    "Id": 2,
+    "Name": "An",
+    "Email": "Andreas@a.com",
+    "Password": "1",
+    "Friends": [],
+    "Username": "Andreas"
   }
 }
