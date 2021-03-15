@@ -22,5 +22,13 @@
     "Password": "asd",
     "Friends": [],
     "Username": "asd"
+  },
+  "4": {
+    "Id": 4,
+    "Name": "Jacob",
+    "Email": "a@a.com",
+    "Password": "1",
+    "Friends": [],
+    "Username": "Jacob"
   }
 }

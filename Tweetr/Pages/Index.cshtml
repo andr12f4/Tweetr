@@ -7,35 +7,39 @@
 
 <div class="row row-cols-1">
     <div class="col overflow-auto">
-        @foreach(Models.Tweet tweet in Model.TweetsPublic)
+        <h5>Tweets</h5>
+        @foreach (Models.Tweet tweet in Model.TweetsPublic)
         {
-        <div class="card">
-            <p class="card-header">At @tweet.customer.Username</p>
-            <div class="card-body">
-                <h5 class="card-title">@tweet.customer.Name</h5>
-                <p class="card-text text-center">@tweet.Text</p>
+            <div class="card">
+                <p class="card-header">At @tweet.customer.Username</p>
+                <div class="card-body">
+                    <h5 class="card-title">@tweet.customer.Name</h5>
+                    <p class="card-text text-center">@tweet.Text</p>
 
 
-                @if (Model.customer != null)
-                {
-                    @if (Model.Tweet.Likes[Model.customer.Id] == Model.customer.Id)
+                    @if (Model.customer != null)
                     {
-
-                    <a class="btn btn-primary" asp-page-handler="Like" asp-route="@tweet.Id">Like</a>
+                        @if (!tweet.Likes.Contains(Model.customer.Id))
+                        {
+                            <form asp-page-handler="Likes" method="post">
+                                <input type="hidden" name="id" value="@tweet.Id" />
+                                <button class="btn btn-primary">Like</button>
+                            </form>
+                        }
                     }
-                }
-                <p> @tweet.Likes.Count har synes godt om</p>
-            </div>
-            <div class="card-footer">
-                <i>Blev sendt d. @tweet.DateOfTweet.ToString()</i>
-            </div>
+                    <p> @tweet.Likes.Count Synes godt om</p>
+                </div>
+                <div class="card-footer">
+                    <i>Blev sendt d. @tweet.DateOfTweet.ToString()</i>
+                </div>
 
-        </div>
+            </div>
         }
     </div>
     <div class="col overflow-auto">
         @if (!Model.NotLoggedIn)
         {
+            <h5>Dem du følger</h5>
             @foreach (Models.Tweet tweet in Model.TweetsPrivate)
             {
                 <div class="card">
@@ -43,11 +47,17 @@
                     <div class="card-body">
                         <h5 class="card-title">@tweet.customer.Name</h5>
                         <p class="card-text text-center">@tweet.Text</p>
-                        @if (Model.customer != null && tweet.Likes[Model.customer.Id] != Model.customer.Id)
+                        @if (Model.customer != null)
                         {
-                            <a class="btn btn-primary" asp-page-handler="Like" asp-route="@tweet.Id">Like</a>
+                            @if (!tweet.Likes.Contains(Model.customer.Id))
+                            {
+                                <form asp-page-handler="Likes" method="post">
+                                    <input type="hidden" name="id" value="@tweet.Id" />
+                                    <button class="btn btn-primary">Like</button>
+                                </form>
+                            }
                         }
-                        <p> @tweet.Likes.Count har synes godt om</p>
+                        <p> @tweet.Likes.Count Synes godt om</p>
 
                     </div>
                     <div class="card-footer">

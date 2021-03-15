@@ -49,7 +49,7 @@ namespace Tweetr.Pages
 
         public IActionResult OnPost()
         {
-            if (Tweet.Text.Length > 1)
+            if (Tweet.Text.Length != null)
             {
                 Tweet.customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user"));
                 
@@ -62,16 +62,13 @@ namespace Tweetr.Pages
         public IActionResult OnPostLikes(int id)
         {
             Tweet tweet = TweetHandler.GetTweet(id);
+            if (TweetsPublic != null && TweetsPrivate != null)
+            {
+                tweet.Likes.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user")).Id);
+            }
+            
             TweetHandler.UpdateTweet(id,tweet);
-            if (TweetsPublic != null)
-            {
-                tweet.Likes.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user")).Id);
-            }
-            if (TweetsPrivate != null)
-            {
-                tweet.Likes.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user")).Id);
-            }
-            return Page();
+            return RedirectToPage();
         }
     }
 }

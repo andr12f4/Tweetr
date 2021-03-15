@@ -2,7 +2,10 @@
   "1": {
     "Id": 1,
     "Text": "Andet Tweet",
-    "Likes": [],
+    "Likes": [
+      1,
+      4
+    ],
     "customer": {
       "Id": 2,
       "Name": "An",
