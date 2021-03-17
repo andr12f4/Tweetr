@@ -1,4 +1,24 @@
 ﻿@page
 @model Tweetr.Pages.MyProfileModel
 @{
+    ViewData["Title"] = "Min profil";
 }
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-page-handler="AddFriend" method="post">
+    <div class="form-group">
+        <label class="form-text">Username</label>
+        <input asp-for="@Model.customer.Username" class="form-control" />
+        <span asp-validation-for="@Model.customer.Username" class="text-danger"></span>
+        <button class="btn btn-primary">Add</button>
+    </div>
+</form>
+<form asp-page-handler="DeleteFriend" method="post">
+    <div class="form-group">
+        <label class="form-text">Username</label>
+        <input asp-for="@Model.customer.Username" class="form-control" />
+        <span asp-validation-for="@Model.customer.Username" class="text-danger"></span>
+        <button class="btn btn-danger">Add</button>
+    </div>
+</form>

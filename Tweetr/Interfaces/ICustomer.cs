@@ -12,6 +12,7 @@ namespace Tweetr.Interfaces
         public Customer GetCustomer(int id);
         public Customer GetCustomer(string username, string password);
         public void DeleteCustomer(int id);
+        public void Update(int id, Customer customer);
         public List<Customer> GetAllCustomers();
 
     }

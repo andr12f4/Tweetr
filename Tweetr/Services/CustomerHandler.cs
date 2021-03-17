@@ -52,9 +52,16 @@ namespace Tweetr.Services
         }
         public Dictionary<int, Customer> GetDictionary()
         {
-            JsonFile<Customer> jsonKategori = new JsonFile<Customer>();
-            return jsonKategori.ReadJsonFile(_filePath);
+            JsonFile<Customer> jsonCustomer = new JsonFile<Customer>();
+            return jsonCustomer.ReadJsonFile(_filePath);
 
+        }
+
+        public void Update(int id, Customer customer)
+        {
+            Dictionary<int, Customer> dicT = new JsonFile<Customer>().ReadJsonFile(_filePath);
+            dicT[id] = customer;
+            new JsonFile<Customer>().WriteJsonFile(dicT, _filePath);
         }
 
     }
