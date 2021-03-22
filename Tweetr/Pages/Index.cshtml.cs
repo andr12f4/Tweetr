@@ -14,7 +14,7 @@ namespace Tweetr.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private ITweet TweetHandler;
+        private ITweet _tweetHandler;
         
         
         public Customer customer { get; set; }
@@ -29,7 +29,7 @@ namespace Tweetr.Pages
         public IndexModel(ILogger<IndexModel> logger, ITweet iTweet)
         {
             _logger = logger;
-            TweetHandler = iTweet;
+            _tweetHandler = iTweet;
         }
 
         public void OnGet()
@@ -37,37 +37,37 @@ namespace Tweetr.Pages
             if (HttpContext.Session.GetString("user") != null)
             {
                 customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user"));
-                TweetsPrivate = TweetHandler.GetAllFriendsTweets(customer.Id);
+                TweetsPrivate = _tweetHandler.GetAllFriendsTweets(customer.Id);
             }
             else
             {
                 NotLoggedIn = true;
             }
 
-            TweetsPublic = TweetHandler.GetAllPublicTweets();
+            TweetsPublic = _tweetHandler.GetAllPublicTweets();
         }
 
         public IActionResult OnPost()
         {
-            if (Tweet.Text.Length != null)
+            if (Tweet.Text != null)
             {
                 Tweet.customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user"));
                 
-                TweetHandler.Create(Tweet);
-                return Page();
+                _tweetHandler.Create(Tweet);
+                return RedirectToPage();
             }
             return Page();
         }
 
         public IActionResult OnPostLikes(int id)
         {
-            Tweet tweet = TweetHandler.GetTweet(id);
+            Tweet tweet = _tweetHandler.GetTweet(id);
             if (TweetsPublic != null && TweetsPrivate != null)
             {
                 tweet.Likes.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user")).Id);
             }
             
-            TweetHandler.UpdateTweet(id,tweet);
+            _tweetHandler.UpdateTweet(id,tweet);
             return RedirectToPage();
         }
     }
