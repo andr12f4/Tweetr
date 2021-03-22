@@ -31,8 +31,6 @@ namespace Tweetr.Services
         public Dictionary<int, Customer> GetAllCustomers()
         {
             Dictionary<int, Customer> dicT = new JsonFile<Customer>().ReadJsonFile(_filePath);
-            
-
             return dicT;
         }
 
