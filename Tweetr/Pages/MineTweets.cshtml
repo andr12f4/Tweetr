@@ -1,0 +1,53 @@
+﻿@page
+@using Tweetr.Models
+@model Tweetr.Pages.MineTweetsModel
+@{
+ViewData["Title"] = "Mine tweets";
+}
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+<h1>@ViewData["Title"]</h1>
+
+
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Posted
+        </th>
+        <th>
+            Tweet
+        </th>
+        <th>
+            Delete
+        </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (Tweet tweet in Model.Liste)
+    {
+        <tr>
+            <td>
+                @tweet.DateOfTweet
+            </td>
+            <td>
+                @tweet.Text
+            </td>
+            <td>
+                <form asp-page-handler="Delete" method="post">
+                    <input type="hidden" name="id" value="@tweet.Id" />
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+
+        </tr>
+    }
+    </tbody>
+
+</table>

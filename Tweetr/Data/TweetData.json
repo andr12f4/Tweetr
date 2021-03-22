@@ -4,7 +4,8 @@
     "Text": "Andet Tweet",
     "Likes": [
       1,
-      4
+      4,
+      2
     ],
     "customer": {
       "Id": 2,
@@ -16,5 +17,20 @@
     },
     "tweetPublicity": 0,
     "DateOfTweet": "2021-03-15T11:55:56.509501+01:00"
+  },
+  "3": {
+    "Id": 3,
+    "Text": "4 tweet",
+    "Likes": [],
+    "customer": {
+      "Id": 2,
+      "Name": "An",
+      "Email": "Andreas@a.com",
+      "Password": "1",
+      "Friends": [],
+      "Username": "Andreas"
+    },
+    "tweetPublicity": 1,
+    "DateOfTweet": "2021-03-15T13:25:52.0042852+01:00"
   }
 }
