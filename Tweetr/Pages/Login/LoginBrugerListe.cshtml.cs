@@ -13,7 +13,7 @@ namespace Tweetr.Pages.Login
         public Dictionary<int, Models.Customer> Liste { get; set; }
         public void OnGet()
         {
-            Liste = new Services.CustomerHandler().GetDictionary();
+            Liste = new Services.DBCustomerHandler().GetAllCustomers();
         }
     }
 }
