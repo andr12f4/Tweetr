@@ -70,5 +70,10 @@ namespace Tweetr.Pages
             _tweetHandler.UpdateTweet(id,tweet);
             return RedirectToPage();
         }
+        public IActionResult OnPostDelete(int id)
+        {
+            _tweetHandler.DeleteTweet(id);
+            return RedirectToPage();
+        }
     }
 }
