@@ -10,30 +10,44 @@
         <h5>Tweets</h5>
         @foreach (Models.Tweet tweet in Model.TweetsPublic)
         {
-            <div class="card">
-                <p class="card-header">At @tweet.customer.Username</p>
-                <div class="card-body">
-                    <h5 class="card-title">@tweet.customer.Name</h5>
-                    <p class="card-text text-center">@tweet.Text</p>
+    <div class="card">
+        <p class="card-header">At @tweet.customer.Username</p>
+        <div class="card-body">
+            <h5 class="card-title">@tweet.customer.Name</h5>
+            <p class="card-text text-center">@tweet.Text</p>
 
 
-                    @if (Model.customer != null)
-                    {
-                        @if (!tweet.Likes.Contains(Model.customer.Id))
-                        {
-                            <form asp-page-handler="Likes" method="post">
-                                <input type="hidden" name="id" value="@tweet.Id" />
-                                <button class="btn btn-primary">Like</button>
-                            </form>
-                        }
-                    }
-                    <p> @tweet.Likes.Count Synes godt om</p>
-                </div>
-                <div class="card-footer">
-                    <i>Blev sendt d. @tweet.DateOfTweet.ToString()</i>
-                </div>
+            @if (Model.customer != null)
+            {
+                @if (!tweet.Likes.Contains(Model.customer.Id))
+                {
+                    <form asp-page-handler="Likes" method="post">
+                        <input type="hidden" name="id" value="@tweet.Id" />
+                        <button class="btn btn-primary">Like</button>
+                    </form>
+                    
+                }
+                
+            }
+        <div style="float:left">
+            <p> @tweet.Likes.Count Synes godt om </p>
+        </div>
+            
+            @if (Model.customer != null && tweet.customer.Id==Model.customer.Id)
 
-            </div>
+            {
+                <form asp-page-handler="Delete" method="post" style="float:right;">
+                    <input type="hidden" name="id" value="@tweet.Id"/>
+                    <button class="btn btn-link">Delete</button>
+                </form>
+            }
+        </div>
+        <div class="card-footer">
+            <i>Blev sendt d. @tweet.DateOfTweet.ToString()</i>
+        </div>
+        
+
+    </div>
         }
     </div>
     <div class="col overflow-auto">
