@@ -4,7 +4,9 @@
     "Name": "Alex",
     "Email": "Alex@Alex.dk",
     "Password": "Alex",
-    "Friends": [],
+    "Friends": [
+      0
+    ],
     "Username": "Alex"
   },
   "2": {
@@ -30,5 +32,13 @@
     "Password": "1",
     "Friends": [],
     "Username": "Jacob"
+  },
+  "5": {
+    "Id": 5,
+    "Name": "Mikkel",
+    "Email": "Mikkel@mail.dk",
+    "Password": "Mikkel",
+    "Friends": [],
+    "Username": "Mikkel"
   }
 }

@@ -28,9 +28,12 @@ namespace Tweetr.Services
             new JsonFile<Customer>().WriteJsonFile(dicT, _filePath);
         }
 
-        public List<Customer> GetAllCustomers()
+        public Dictionary<int, Customer> GetAllCustomers()
         {
-            throw new NotImplementedException();
+            Dictionary<int, Customer> dicT = new JsonFile<Customer>().ReadJsonFile(_filePath);
+            
+
+            return dicT;
         }
 
         public Customer GetCustomer(int id)

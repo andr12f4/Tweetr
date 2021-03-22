@@ -35,7 +35,7 @@ namespace Tweetr.Pages
             {
                 customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user"));
                 Customer customerFriend = new Customer();
-                foreach (Customer cus in _customerHandler.GetAllCustomers())
+                foreach (Customer cus in _customerHandler.GetAllCustomers().Values)
                 {
                     if (cus.Username == username)
                     {
@@ -57,7 +57,7 @@ namespace Tweetr.Pages
             {
                 customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user"));
                 Customer customerFriend = new Customer();
-                foreach (Customer cus in _customerHandler.GetAllCustomers())
+                foreach (Customer cus in _customerHandler.GetAllCustomers().Values)
                 {
                     if (cus.Username == username)
                     {

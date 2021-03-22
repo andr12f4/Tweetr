@@ -15,6 +15,11 @@ namespace Tweetr.Data
             string input = File.ReadAllText(filePath);
             return JsonConvert.DeserializeObject<Dictionary<int, T>>(input);
         }
+        public List<T> ReadJsonFileList(string filePath)
+        {
+            string input = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<List<T>>(input);
+        }
 
         public void WriteJsonFile(Dictionary<int, T> dic, string filePath)
         {
