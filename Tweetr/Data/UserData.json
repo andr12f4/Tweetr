@@ -38,7 +38,10 @@
     "Name": "Mikkel",
     "Email": "Mikkel@mail.dk",
     "Password": "Mikkel",
-    "Friends": [],
+    "Friends": [
+      0,
+      0
+    ],
     "Username": "Mikkel"
   }
 }
