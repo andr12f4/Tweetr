@@ -15,5 +15,7 @@ namespace Tweetr.Interfaces
         public void Update(int id, Customer customer);
         public Dictionary<int, Customer> GetAllCustomers();
 
+        public void AddFriend(int id, string FriendUsername);
+
     }
 }

@@ -34,17 +34,7 @@ namespace Tweetr.Pages
             if (HttpContext.Session.GetString("user") != null)
             {
                 customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user"));
-                Customer customerFriend = new Customer();
-                foreach (Customer cus in _customerHandler.GetAllCustomers().Values)
-                {
-                    if (cus.Username == username)
-                    {
-                        customerFriend = cus;
-                    }
-                }
-                
-                customer.Friends.Add(customerFriend.Id);
-                _customerHandler.Update(customer.Id, customer);
+                _customerHandler.AddFriend(customer.Id, username);
                 
             }
 

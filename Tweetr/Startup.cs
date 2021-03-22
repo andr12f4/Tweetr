@@ -31,7 +31,7 @@ namespace Tweetr
             });
 
             services.AddSingleton<ITweet, TweetHandler>();
-            services.AddSingleton<ICustomer, CustomerHandler>();
+            services.AddSingleton<ICustomer, DBCustomerHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

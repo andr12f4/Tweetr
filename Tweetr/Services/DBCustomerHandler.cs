@@ -8,7 +8,7 @@ using Tweetr.Models;
 
 namespace Tweetr.Services
 {
-    public class DBCustomerHandler : IDBCustomer
+    public class DBCustomerHandler : ICustomer
     {
         private const String ConnString = @"Data Source=alek0532.database.windows.net;Initial Catalog=Tweetr;User ID=trifunovic;Password=Zealand1303;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
@@ -21,18 +21,34 @@ namespace Tweetr.Services
                                           "Password=@PASSWORD," +
                                           "Username=@USERNAME where Id = @ID";
 
-        public List<Customer> List;
+        public void AddFriend(int id, string username)
+        {
+            Customer customer1 = new Customer();
+            foreach(Customer customer in GetAllCustomers().Values)
+            {
+                if (customer.Username == username)
+                {
+                    customer1 = customer;
+                }
+            }
+            if (customer1 != null)
+            {
+            using (SqlConnection conn = new SqlConnection(ConnString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("insert into Users(Id, FriendID) Values (@ID, @idFriend)", conn))
+                {
+                    cmd.Parameters.AddWithValue("@ID", id);
+                    cmd.Parameters.AddWithValue("@idFriend", customer1.Id);
 
+                    int rows = cmd.ExecuteNonQuery();
+                }
+            }
 
-        //CREATE TABLE Users(
-        //    Id  int NOT NULL PRIMARY KEY,
-        //Name VARCHAR(30)      NOT NULL,
-        //    Email   VARCHAR(50)   NOT NULL,
-        //    Password VARCHAR(30) NOT NULL,
-        //    Username VARCHAR(30) NOT NULL
-        //);
+            }
+        }
 
-        public bool Create(Customer customer)
+        public void Create(Customer customer)
         {
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
@@ -44,17 +60,12 @@ namespace Tweetr.Services
                     cmd.Parameters.AddWithValue("@EMAIL", customer.Email);
                     cmd.Parameters.AddWithValue("@PASSWORD", customer.Password);
                     cmd.Parameters.AddWithValue("@USERNAME", customer.Username);
-
-
-
                     int rows = cmd.ExecuteNonQuery();
-
-                    return rows == 1;
                 }
             }
         }
 
-        public Customer DeleteCustomer(int id)
+        public void DeleteCustomer(int id)
         {
             Customer u = GetCustomer(id);
 
@@ -69,11 +80,12 @@ namespace Tweetr.Services
                 }
             }
 
-            return u;
+            
         }
 
-        public List<Customer> GetAllCustomers()
+        public Dictionary<int,Customer> GetAllCustomers()
         {
+            Dictionary<int, Customer> list = new Dictionary<int, Customer>();
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 conn.Open();
@@ -90,12 +102,12 @@ namespace Tweetr.Services
                         u.Username = reader.GetString(4);
 
 
-                        List.Add(u);
+                        list.Add(u.Id,u);
 
                     }
                 }
 
-                return List;
+                return list;
             }
         }
 
@@ -104,33 +116,60 @@ namespace Tweetr.Services
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("select * from Users where Id = @ID", conn))
+                using (SqlCommand cmd = new SqlCommand("SELECT Users.Id, Users.Name,Users.Username, Users.Password,Users.Email, Friends.FriendID FROM Users Right JOIN Friends ON Users.Id = Friends.Id Where Users.Id = @Id", conn))
                 {
                     cmd.Parameters.AddWithValue("@ID", id);
-
+                    
                     SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    Customer u = new Customer();
+                    u.Friends = new List<int>();
+                    while (reader.Read())
                     {
-                        Customer u = new Customer();
                         u.Id = reader.GetInt32(0);
                         u.Name = reader.GetString(1);
-                        u.Email = reader.GetString(2);
+                        u.Email = reader.GetString(4);
                         u.Password = reader.GetString(3);
-                        u.Username = reader.GetString(4);
-                        return u;
+                        u.Username = reader.GetString(2);
+                        u.Friends.Add(reader.GetInt32(5));
                     }
+                    return u;
                 }
 
                 throw new KeyNotFoundException("Der var ingen userstory med id = " + id);
             }
         }
 
+
+
         public Customer GetCustomer(string username, string password)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = new SqlConnection(ConnString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT Users.Id, Users.Name,Users.Username, Users.Password,Users.Email, Friends.FriendID FROM Users Right JOIN Friends ON Users.Id = Friends.Id Where Users.Username = @user And Users.Password = @pass", conn))
+                {
+                    cmd.Parameters.AddWithValue("@user", username);
+                    cmd.Parameters.AddWithValue("@pass", password);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                        Customer u = new Customer();
+                        u.Friends = new List<int>();
+                    while (reader.Read())
+                    {
+                        u.Id = reader.GetInt32(0);
+                        u.Name = reader.GetString(1);
+                        u.Email = reader.GetString(4);
+                        u.Password = reader.GetString(3);
+                        u.Username = reader.GetString(2);
+                        u.Friends.Add(reader.GetInt32(5));
+                    }
+                    return u;
+                }
+
+                throw new KeyNotFoundException("Der var ingen userstory med username = " + username);
+            }
         }
 
-        public bool Update(int id, Customer customer)
+        public void Update(int id, Customer customer)
         {
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
@@ -146,7 +185,7 @@ namespace Tweetr.Services
 
                     int rows = cmd.ExecuteNonQuery();
 
-                    return rows == 1;
+                   
                 }
             }
         }

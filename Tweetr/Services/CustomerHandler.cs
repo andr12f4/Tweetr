@@ -9,7 +9,7 @@ using Tweetr.Models;
 
 namespace Tweetr.Services
 {
-    public class CustomerHandler : ICustomer
+    public class CustomerHandler //: ICustomer
     {
         private string _filePath = Path.GetFullPath("./Data/UserData.json", Environment.CurrentDirectory);
 
