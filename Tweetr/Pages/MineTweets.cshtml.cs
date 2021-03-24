@@ -14,7 +14,7 @@ namespace Tweetr.Pages
 {
     public class MineTweetsModel : PageModel
     {
-        public List<Models.Tweet> Liste { get; set; }
+        public Dictionary<int,Models.Tweet> Liste { get; set; }
 
         private ITweet _tweetHandler;
 

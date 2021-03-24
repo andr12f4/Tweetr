@@ -20,9 +20,9 @@ namespace Tweetr.Pages
         public Customer customer { get; set; }
         public bool NotLoggedIn { get; set; }
         [BindProperty]
-        public List<Tweet> TweetsPublic { get; set; }
+        public Dictionary<int,Tweet> TweetsPublic { get; set; }
         [BindProperty]
-        public List<Tweet> TweetsPrivate { get; set; }
+        public Dictionary<int,Tweet> TweetsPrivate { get; set; }
         [BindProperty]
         public Tweet Tweet { get; set; }
 
@@ -52,11 +52,11 @@ namespace Tweetr.Pages
             if (Tweet.Text != null)
             {
                 Tweet.customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user"));
-                
+                Tweet.DateOfTweet = DateTime.Now;
                 _tweetHandler.Create(Tweet);
                 return RedirectToPage();
             }
-            return Page();
+            return RedirectToPage();
         }
 
         public IActionResult OnPostLikes(int id)
@@ -67,7 +67,7 @@ namespace Tweetr.Pages
                 tweet.Likes.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user")).Id);
             }
             
-            _tweetHandler.UpdateTweet(id,tweet);
+            _tweetHandler.AddLike(id,tweet.Id);
             return RedirectToPage();
         }
         public IActionResult OnPostDelete(int id)

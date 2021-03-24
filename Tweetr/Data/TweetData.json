@@ -38,7 +38,9 @@
   "3": {
     "Id": 3,
     "Text": "hvad saaaa",
-    "Likes": [],
+    "Likes": [
+      1
+    ],
     "customer": {
       "Id": 1,
       "Name": "Alex",

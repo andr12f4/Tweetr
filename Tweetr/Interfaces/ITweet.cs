@@ -12,9 +12,11 @@ namespace Tweetr.Interfaces
         public Tweet GetTweet(int id);
         public void UpdateTweet(int id, Tweet tweet);
         public void DeleteTweet(int id);
-        public List<Tweet> GetAllPublicTweets();
-        public List<Tweet> GetAllFriendsTweets(int userID);
-        public List<Tweet> GetAllPrivateTweets(int UserID);
+        public Dictionary<int,Tweet> GetAllPublicTweets();
+        public Dictionary<int,Tweet> GetAllFriendsTweets(int userID);
+        public Dictionary<int,Tweet> GetAllPrivateTweets(int UserID);
+
+        public void AddLike(int id, int tweetId);
 
     }
 }

@@ -8,7 +8,7 @@
 <div class="row row-cols-1">
     <div class="col overflow-auto">
         <h5>Tweets</h5>
-        @foreach (Models.Tweet tweet in Model.TweetsPublic)
+        @foreach (Models.Tweet tweet in Model.TweetsPublic.Values)
         {
     <div class="card">
         <p class="card-header">At @tweet.customer.Username</p>
@@ -54,7 +54,7 @@
         @if (!Model.NotLoggedIn)
         {
             <h5>Dem du følger</h5>
-            @foreach (Models.Tweet tweet in Model.TweetsPrivate)
+            @foreach (Models.Tweet tweet in Model.TweetsPrivate.Values)
             {
                 <div class="card">
                     <p class="card-header">@tweet.customer.Username</p>
@@ -97,7 +97,7 @@
                 <div asp-validation-summary="ModelOnly"></div>
                 <div class="form-group">
                     <label class="form-text">Text</label>
-                    <input asp-for="@Model.Tweet.Text" class="form-control" />
+                    <input type="text" asp-for="@Model.Tweet.Text" class="form-control" />
                     <span asp-validation-for="@Model.Tweet.Text" class="text-danger"></span>
                 </div>
                 <label class="form-text">Synligheden for dit tweet</label>

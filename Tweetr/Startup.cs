@@ -30,7 +30,7 @@ namespace Tweetr
                 options.IdleTimeout = TimeSpan.FromMinutes(60);
             });
 
-            services.AddSingleton<ITweet, TweetHandler>();
+            services.AddSingleton<ITweet, DBTweetHandler>();
             services.AddSingleton<ICustomer, DBCustomerHandler>();
         }
 

@@ -9,7 +9,7 @@ using Tweetr.Models;
 
 namespace Tweetr.Services
 {
-    public class TweetHandler : ITweet
+    public class TweetHandler
     {
 
         private string _filePath = Path.GetFullPath("./Data/TweetData.json", Environment.CurrentDirectory);
