@@ -1,3 +1,55 @@
 {
-  
+  "1": {
+    "Id": 1,
+    "Text": "hej123",
+    "Likes": [
+      2,
+      1
+    ],
+    "customer": {
+      "Id": 2,
+      "Name": "An",
+      "Email": "Andreas@a.com",
+      "Password": "1",
+      "Friends": [],
+      "Username": "Andreas"
+    },
+    "tweetPublicity": 0,
+    "DateOfTweet": "2021-03-24T10:33:10.6415506+01:00"
+  },
+  "2": {
+    "Id": 2,
+    "Text": "hej123",
+    "Likes": [
+      2,
+      1
+    ],
+    "customer": {
+      "Id": 2,
+      "Name": "An",
+      "Email": "Andreas@a.com",
+      "Password": "1",
+      "Friends": [],
+      "Username": "Andreas"
+    },
+    "tweetPublicity": 0,
+    "DateOfTweet": "2021-03-24T10:33:15.3275346+01:00"
+  },
+  "3": {
+    "Id": 3,
+    "Text": "hvad saaaa",
+    "Likes": [],
+    "customer": {
+      "Id": 1,
+      "Name": "Alex",
+      "Email": "Alex@Alex.dk",
+      "Password": "Alex",
+      "Friends": [
+        2
+      ],
+      "Username": "Alex"
+    },
+    "tweetPublicity": 0,
+    "DateOfTweet": "2021-03-24T10:34:26.5284883+01:00"
+  }
 }

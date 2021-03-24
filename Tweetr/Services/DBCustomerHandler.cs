@@ -146,7 +146,8 @@ namespace Tweetr.Services
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT Users.Id, Users.Name,Users.Username, Users.Password,Users.Email, Friends.FriendID FROM Users Right JOIN Friends ON Users.Id = Friends.Id Where Users.Username = @user And Users.Password = @pass", conn))
+                using (SqlCommand cmd = new SqlCommand("SELECT Users.Id, Users.Name,Users.Username, Users.Password,Users.Email," +
+                                                       " Friends.FriendID FROM Users Right JOIN Friends ON Users.Id = Friends.Id Where Users.Username = @user And Users.Password = @pass", conn))
                 {
                     cmd.Parameters.AddWithValue("@user", username);
                     cmd.Parameters.AddWithValue("@pass", password);
