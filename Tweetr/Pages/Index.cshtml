@@ -8,7 +8,7 @@
 <div class="row row-cols-1">
     <div class="col overflow-auto">
         <h5>Tweets</h5>
-        @foreach (Models.Tweet tweet in Model.TweetsPublic.Values)
+        @foreach (Models.Tweet tweet in Model.TweetsPublic)
         {
     <div class="card">
         <p class="card-header">At @tweet.customer.Username</p>
@@ -54,7 +54,7 @@
         @if (!Model.NotLoggedIn)
         {
             <h5>Dem du følger</h5>
-            @foreach (Models.Tweet tweet in Model.TweetsPrivate.Values)
+            @foreach (Models.Tweet tweet in Model.TweetsPrivate)
             {
                 <div class="card">
                     <p class="card-header">@tweet.customer.Username</p>

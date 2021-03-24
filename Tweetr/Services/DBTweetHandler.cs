@@ -12,8 +12,8 @@ namespace Tweetr.Services
     {
         private const String ConnString = @"Data Source=alek0532.database.windows.net;Initial Catalog=Tweetr;User ID=trifunovic;Password=Zealand1303;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        private const String createTweet = "insert into Tweets (Id, Text, DOT, TPublicity, " +
-                                           "Username) Values (@ID, @TEXT, @DOT, @TPUBLICITY, @username)";
+        private const String createTweet = "insert into Tweets (Tweet, Tpublicity, DOB, " +
+                                           "customerId) Values (@TEXT, @TPUBLICITY, @DOT, @username)";
 
         private const String updateTweet = "Update Tweet set Id = @ID," +
                                           "Tweet=@TEXT," +
@@ -26,14 +26,14 @@ namespace Tweetr.Services
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(createTweet, conn))
                 {
-                    cmd.Parameters.AddWithValue("@ID", tweet.Id);
+                    
                     cmd.Parameters.AddWithValue("@TEXT", tweet.Text);
                     cmd.Parameters.AddWithValue("@TPUBLICITY", tweet.tweetPublicity);
                     cmd.Parameters.AddWithValue("@DOT", tweet.DateOfTweet);
                     cmd.Parameters.AddWithValue("@username", tweet.customer.Id);
 
 
-                    int rows = cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
 
 
                 }
@@ -47,10 +47,10 @@ namespace Tweetr.Services
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("delete from Tweets where Id = @ID", conn))
+                using (SqlCommand cmd = new SqlCommand("delete from Tweets where Id = @ID ", conn))
                 {
                     cmd.Parameters.AddWithValue("@ID", id);
-
+                    // kan ikke delete når der er foreign keys, spørg peter
                     int rows = cmd.ExecuteNonQuery();
                 }
             }
@@ -261,6 +261,7 @@ namespace Tweetr.Services
                         u.Text = reader.GetString(1);
                         u.DateOfTweet = reader.GetDateTime(2);
                         u.tweetPublicity = (TweetPublicity) reader.GetInt32(3);
+                        u.customer = new Customer();
                         u.customer.Id = reader.GetInt32(4);
                         u.Likes.Add(reader.GetInt32(5));
                     }
@@ -280,7 +281,7 @@ namespace Tweetr.Services
                 using (SqlCommand cmd = new SqlCommand("insert into Likes (TweetId, UserID) Values (@ID, @cId)", conn))
                 {
 
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    
 
                     cmd.Parameters.AddWithValue("@ID", tweetId);
                     cmd.Parameters.AddWithValue("@cId", id);

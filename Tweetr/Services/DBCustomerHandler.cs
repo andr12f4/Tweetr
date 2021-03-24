@@ -12,8 +12,8 @@ namespace Tweetr.Services
     {
         private const String ConnString = @"Data Source=alek0532.database.windows.net;Initial Catalog=Tweetr;User ID=trifunovic;Password=Zealand1303;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        private const String createUser = "insert into Users (Id, Name, Email, Password, " +
-                                          "Username) Values (@ID, @NAME, @EMAIL, @PASSWORD, @USERNAME)";
+        private const String createUser = "insert into Users (Name, Email, Password, " +
+                                          "Username) Values (@NAME, @EMAIL, @PASSWORD, @USERNAME)";
 
         private const String updateUser = "Update Users set Id=@ID," +
                                           "Name=@NAME," +
@@ -36,12 +36,12 @@ namespace Tweetr.Services
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("insert into Users(Id, FriendID) Values (@ID, @idFriend)", conn))
+                using (SqlCommand cmd = new SqlCommand("insert into Friends(Id, FriendID) Values (@Id, @idFriend)", conn))
                 {
-                    cmd.Parameters.AddWithValue("@ID", id);
+                    cmd.Parameters.AddWithValue("@Id", id);
                     cmd.Parameters.AddWithValue("@idFriend", customer1.Id);
 
-                    int rows = cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
                 }
             }
 
@@ -55,7 +55,7 @@ namespace Tweetr.Services
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(createUser, conn))
                 {
-                    cmd.Parameters.AddWithValue("@ID", customer.Id);
+                    //cmd.Parameters.AddWithValue("@ID", customer.Id);
                     cmd.Parameters.AddWithValue("@NAME", customer.Name);
                     cmd.Parameters.AddWithValue("@EMAIL", customer.Email);
                     cmd.Parameters.AddWithValue("@PASSWORD", customer.Password);

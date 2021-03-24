@@ -20,9 +20,9 @@ namespace Tweetr.Pages
         public Customer customer { get; set; }
         public bool NotLoggedIn { get; set; }
         [BindProperty]
-        public Dictionary<int,Tweet> TweetsPublic { get; set; }
+        public List<Tweet> TweetsPublic { get; set; }
         [BindProperty]
-        public Dictionary<int,Tweet> TweetsPrivate { get; set; }
+        public List<Tweet> TweetsPrivate { get; set; }
         [BindProperty]
         public Tweet Tweet { get; set; }
 
@@ -34,17 +34,27 @@ namespace Tweetr.Pages
 
         public void OnGet()
         {
+            TweetsPrivate = new List<Tweet>();
+            TweetsPublic = new List<Tweet>();
             if (HttpContext.Session.GetString("user") != null)
             {
                 customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user"));
-                TweetsPrivate = _tweetHandler.GetAllFriendsTweets(customer.Id);
+                foreach (Tweet tweets in _tweetHandler.GetAllFriendsTweets(customer.Id).Values)
+                {
+
+                    TweetsPrivate.Add(tweets);
+                }
+
             }
             else
             {
                 NotLoggedIn = true;
             }
+            foreach (Tweet tweets in _tweetHandler.GetAllPublicTweets().Values)
+            {
 
-            TweetsPublic = _tweetHandler.GetAllPublicTweets();
+            TweetsPublic.Add(tweets);
+            }
         }
 
         public IActionResult OnPost()
@@ -62,12 +72,9 @@ namespace Tweetr.Pages
         public IActionResult OnPostLikes(int id)
         {
             Tweet tweet = _tweetHandler.GetTweet(id);
-            if (TweetsPublic != null && TweetsPrivate != null)
-            {
-                tweet.Likes.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user")).Id);
-            }
-            
-            _tweetHandler.AddLike(id,tweet.Id);
+
+            customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("user"));
+            _tweetHandler.AddLike(customer.Id,id);
             return RedirectToPage();
         }
         public IActionResult OnPostDelete(int id)
