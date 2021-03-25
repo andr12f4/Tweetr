@@ -36,7 +36,8 @@ namespace Tweetr.Pages.Login
         {
 
             Customer = customerHandler.GetCustomer(Username, Password);
-            if (Customer != null)
+
+            if (Customer.Password == Password && Customer.Username == Username)
             {
                 HttpContext.Session.SetString("user", JsonConvert.SerializeObject(Customer));
                 return RedirectToPage("/Index");
